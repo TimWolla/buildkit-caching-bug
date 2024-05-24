@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  Demo:
+  BuildKit:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,39 @@ jobs:
     - name: Demo
       run: |
         set -ex
+
+        cd debian10-7.3
+        docker build -t test .
+        docker run --rm test cat install.sh
+        cd ..
+
+        cd debian11-7.4
+        docker build -t test .
+        docker run --rm test cat install.sh
+        cd ..
+
+    - name: Stat
+      run: |
+        stat debian*/*
+
+  Legacy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Docker Info
+      run: |
+        set -ex
+
+        docker info
+        docker versiond
+
+    - name: Demo
+      run: |
+        set -ex
+
+        export DOCKER_BUILDKIT=0
 
         cd debian10-7.3
         docker build -t test .
