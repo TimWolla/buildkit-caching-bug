@@ -18,7 +18,7 @@ jobs:
         set -ex
 
         docker info
-        docker versiond
+        docker version
 
     - name: Demo
       run: |
@@ -49,7 +49,7 @@ jobs:
         set -ex
 
         docker info
-        docker versiond
+        docker version
 
     - name: Demo
       run: |
